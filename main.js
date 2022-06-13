@@ -52,7 +52,7 @@ class Apple{
                 }
             }
             this.size = snake.size
-            this.color = "pink"
+            this.color = "green"
 
             if(!isTouching){
                 break;
@@ -89,7 +89,18 @@ function update(){
     checkHitWall();
 }
 
-function checkHitWall(){}
+function checkHitWall(){
+    var headTail = snake.tail[snake.tail.length - 1]
+    if(headTail.x == - snake.size) {
+        headTail.x = canvas.width - snake.size
+    } else if(headTail.x == canvas.width) {
+        headTail.x = 0
+    } else if(headTail.y == - snake.size) {
+        headTail.y = canvas.height - snake.size
+    } else if(headTail.y == canvas.height) {
+        headTail.y = 0
+    }
+}
 
 function eatApple(){
     if(snake.tail[snake.tail.length - 1].x == apple.x &&
@@ -113,7 +124,6 @@ function draw(){
     createRect(apple.x, apple.y, apple.size, apple.size, apple.color)
 }
 
-    
 function createRect(x,y,width, height, color){
     canvasContext.fillStyle = color
     canvasContext.fillRect(x,y,width, height)
