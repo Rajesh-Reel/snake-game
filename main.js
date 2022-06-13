@@ -51,11 +51,12 @@ class Apple{
                     isTouching = true
                 }
             }
+            this.size = snake.size
+            this.color = "pink"
+
             if(!isTouching){
                 break;
             }
-            this.color = "pink"
-            this.size = snake.size
         }
     }
 }
@@ -84,7 +85,18 @@ function show(){
 function update(){
     canvasContext.clearRect(0,0, canvas.width, canvas.height)
     snake.move()
+    eatApple()
+    checkHitWall();
+}
 
+function checkHitWall(){}
+
+function eatApple(){
+    if(snake.tail[snake.tail.length - 1].x == apple.x &&
+         snake.tail[snake.tail.length - 1].y == apple.y){
+            snake.tail[snake.tail.length] = {x:apple.x, y: apple.y}
+            apple = new Apple();
+        }
 }
 
 function draw(){
@@ -96,7 +108,7 @@ function draw(){
     }
     canvasContext.font = "20px Arial"
     canvasContext.fillStyle = "#00FF42"
-    canvasContext.fillText("Score: ", (snake.tail.length + 1), 
+    canvasContext.fillText("Score: "+ (snake.tail.length + 1), 
         canvas.width -120, 18 );
     createRect(apple.x, apple.y, apple.size, apple.size, apple.color)
 }
